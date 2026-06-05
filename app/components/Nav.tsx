@@ -19,6 +19,7 @@ export default function Nav() {
   const dividerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+  
 
   useEffect(() => {
     const nav = navRef.current!;
@@ -26,6 +27,11 @@ export default function Nav() {
     const items = itemsRef.current!;
     const ndiv = dividerRef.current!;
     const ham = pill.querySelector<HTMLButtonElement>(".ham")!;
+    const onDocClick = (e: MouseEvent) => {
+      if (!pill.classList.contains("open")) return;
+      if (nav.contains(e.target as Node)) return;
+      closePill();
+    };
 
     const openPill = () => {
       const r = pill.getBoundingClientRect();
@@ -93,15 +99,18 @@ export default function Nav() {
     const tm = (e: TouchEvent) => { const t = e.touches[0]; move(t.clientX, t.clientY); };
 
     ham.addEventListener("click", onHam);
+    document.addEventListener("click", onDocClick);  
     nav.addEventListener("mousedown", md);
     document.addEventListener("mousemove", mm);
     document.addEventListener("mouseup", up);
     nav.addEventListener("touchstart", ts, { passive: true });
     document.addEventListener("touchmove", tm, { passive: true });
     document.addEventListener("touchend", up);
+    
 
     return () => {
       ham.removeEventListener("click", onHam);
+      document.addEventListener("click", onDocClick);  
       nav.removeEventListener("mousedown", md);
       document.removeEventListener("mousemove", mm);
       document.removeEventListener("mouseup", up);
