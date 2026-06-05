@@ -212,3 +212,50 @@ body { font-family: var(--font-body), serif; overflow-x: hidden; }
   .about-page .qa-ans { transition:none; }
   .about-page .qa-ans p { transition:opacity .15s; }
 }
+
+
+/* ===== Contact page ===== */
+.contact-page { max-width:1040px; margin:0 auto; padding:118px 24px 90px; position:relative; z-index:1; }
+.contact-page .ct-inner { max-width:600px; }
+.contact-page .ct-label { font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--color-gold); margin-bottom:22px; }
+.contact-page .ct-head { font-family:var(--font-display); font-weight:700; font-size:clamp(42px,7vw,62px); line-height:.96; margin:0 0 18px; }
+.contact-page .ct-head em { font-style:normal; color:var(--color-gold); }
+.contact-page .ct-sub { font-size:16px; line-height:1.6; color:var(--color-cream-dim); margin:0 0 34px; max-width:460px; }
+
+.contact-page .channels { display:flex; flex-direction:column; gap:13px; margin-bottom:32px; }
+.contact-page .chan { position:relative; overflow:hidden; display:flex; align-items:center; gap:18px; background:#211810; border:1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius:15px; padding:20px 24px; text-decoration:none; color:var(--color-cream); box-shadow:0 12px 34px -26px rgba(0,0,0,.85); transition:border-color .25s, transform .25s, box-shadow .25s; }
+.contact-page .chan::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 100% 50%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%); opacity:.55; transition:opacity .3s; z-index:0; }
+.contact-page .chan:hover { transform:translateY(-3px); border-color:color-mix(in srgb, var(--accent) 60%, transparent); box-shadow:0 20px 46px -24px rgba(0,0,0,.9), 0 0 30px -16px var(--accent); }
+.contact-page .chan:hover::before { opacity:1; }
+.contact-page .chan .glyph { position:absolute; right:-6px; top:50%; transform:translateY(-50%); color:var(--accent); opacity:.09; pointer-events:none; z-index:0; transition:opacity .3s, transform .35s cubic-bezier(.2,.7,.2,1); }
+.contact-page .chan:hover .glyph { opacity:.16; transform:translateY(-50%) translateX(-5px) rotate(-5deg); }
+.contact-page .chan-ic { position:relative; z-index:1; width:48px; height:48px; border-radius:13px; background:var(--accent); color:var(--ictext); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 10px 22px -8px var(--accent); }
+.contact-page .chan-meta { position:relative; z-index:1; display:flex; flex-direction:column; gap:3px; min-width:0; }
+.contact-page .chan-meta b { font-size:15.5px; color:var(--color-cream); font-weight:500; }
+.contact-page .chan-meta span { font-size:12.5px; color:var(--color-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.contact-page .chan-arr { position:relative; z-index:1; margin-left:auto; color:var(--color-muted-2); display:flex; flex-shrink:0; transition:color .2s, transform .25s; }
+.contact-page .chan:hover .chan-arr { color:var(--accent); transform:translate(3px,-3px); }
+.contact-page .tag { position:relative; z-index:1; font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); border:1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius:100px; padding:3px 9px; margin-left:auto; flex-shrink:0; }
+.contact-page .chan.has-tag .chan-arr { margin-left:14px; }
+
+.contact-page .ct-status { display:flex; align-items:center; gap:12px; font-size:12px; color:var(--color-muted-2); flex-wrap:wrap; }
+.contact-page .avail { display:flex; align-items:center; gap:9px; color:var(--color-cream-dim); }
+.contact-page .ct-eq { display:flex; align-items:flex-end; gap:2px; height:12px; }
+.contact-page .ct-eq i { width:2px; background:var(--color-gold); border-radius:1px; height:4px; animation:ctEq .9s ease-in-out infinite; }
+.contact-page .ct-eq i:nth-child(2) { animation-delay:.18s; }
+.contact-page .ct-eq i:nth-child(3) { animation-delay:.36s; }
+.contact-page .ct-eq i:nth-child(4) { animation-delay:.12s; }
+@keyframes ctEq { 0%,100% { height:3px; } 50% { height:12px; } }
+.contact-page .dotsep { color:var(--color-faint); }
+
+@media (max-width:560px) {
+  .contact-page { padding:100px 18px 70px; }
+  .contact-page .chan-meta span { white-space:normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-page .ct-eq i { animation:none; height:8px; }
+  .contact-page .chan,
+  .contact-page .chan .glyph,
+  .contact-page .chan-arr { transition:none; }
+}
