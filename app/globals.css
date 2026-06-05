@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @theme {
   --color-bg:        #19120e;
   --color-cream:     #ece3d2;
@@ -11,7 +12,9 @@
   --color-gold-bright:#e6b347;
   --color-oxblood:   #9e2f38;
   --color-pill:      #241910;
+}
 
+@theme inline {
   --font-display: var(--font-display);
   --font-body:    var(--font-body);
 }
@@ -84,3 +87,43 @@ body { font-family: var(--font-body), serif; overflow-x: hidden; }
 @keyframes eq { 0%,100% { height:3px } 50% { height:13px } }
 
 @media (max-width:640px){ .hero{ padding-left:24px } .socials{ left:24px } }
+
+
+/* ---------- portfolio ---------- */
+.pf-wrap { position:relative; z-index:10; max-width:1120px; margin:0 auto; padding:130px 56px 96px; }
+.pf-head { position:relative; display:flex; align-items:flex-end; justify-content:space-between; border-bottom:1px solid rgba(212,160,58,.16); padding-bottom:20px; margin-bottom:34px; }
+.pf-head::after { content:""; position:absolute; left:0; bottom:-1px; width:48px; height:2px; background:var(--color-oxblood); }
+.pf-head h2 { font-family:var(--font-display); font-weight:700; font-size:clamp(34px,6vw,52px); line-height:1; color:var(--color-cream); letter-spacing:.005em; }
+.pf-head h2 em { font-style:normal; color:var(--color-gold); }
+.pf-meta { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--color-faint); }
+
+.pf-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; }
+
+.pf-card { display:block; text-decoration:none; color:inherit; transition:transform .4s cubic-bezier(.2,.6,.2,1); }
+.pf-card:hover { transform:translateY(-6px); }
+
+.pf-frame { border-radius:10px; overflow:hidden; border:1px solid rgba(212,160,58,.2); background:#0f0b08; transition:border-color .4s, box-shadow .4s; }
+.pf-card:hover .pf-frame { border-color:rgba(212,160,58,.55); box-shadow:0 22px 50px -20px rgba(0,0,0,.75); }
+.pf-bar { height:24px; display:flex; align-items:center; gap:6px; padding:0 11px; background:#221913; border-bottom:1px solid rgba(212,160,58,.12); }
+.pf-bar i { width:7px; height:7px; border-radius:50%; background:var(--color-faint); display:block; }
+.pf-bar i:first-child { background:var(--color-oxblood); }
+
+.pf-shot { position:relative; aspect-ratio:16/10; overflow:hidden; }
+.pf-img { object-fit:cover; transition:transform .5s cubic-bezier(.2,.6,.2,1); }
+.pf-card:hover .pf-img { transform:scale(1.05); }
+
+.pf-overlay { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:18px; opacity:0; transition:opacity .35s;
+  background:linear-gradient(to top, rgba(10,7,5,.95) 16%, rgba(10,7,5,.55) 54%, transparent 88%); }
+.pf-card:hover .pf-overlay { opacity:1; }
+.pf-od { font-size:12.5px; line-height:1.5; color:var(--color-cream-dim); transform:translateY(8px); transition:transform .35s; }
+.pf-card:hover .pf-od { transform:translateY(0); }
+.pf-oe { display:inline-flex; align-items:center; gap:7px; margin-top:12px; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--color-gold); }
+.pf-oe .arr { color:var(--color-oxblood); display:flex; }
+
+.pf-info { display:flex; align-items:baseline; gap:12px; padding:16px 4px 0; }
+.pf-num { font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--color-gold); }
+.pf-nm { font-family:var(--font-display); font-weight:700; font-size:22px; line-height:1; color:var(--color-cream); }
+.pf-nm em { font-style:normal; color:var(--color-gold); }
+.pf-tc { margin-left:auto; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted-2); text-align:right; max-width:130px; }
+
+@media (max-width:640px){ .pf-wrap{ padding:120px 24px 80px; } }

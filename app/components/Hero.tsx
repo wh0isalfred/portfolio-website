@@ -52,7 +52,7 @@ export default function Hero() {
         <span className="hcursor" />
       </div>
       <p className="hcred">
-        Full-stack web · React &amp; TypeScript · Port Harcourt, Nigeria
+        Full-stack web developer · Port Harcourt, Nigeria
       </p>
       <Link href="/contact" className="hcta">
         Get in touch{" "}
