@@ -8,6 +8,7 @@ export type Project = {
   cover: string;
   description: string;
   live: string;
+  repo: string;  
 };
 
 export const projects: Project[] = [
@@ -22,6 +23,7 @@ export const projects: Project[] = [
     description:
       "Nigerian streetwear, end to end — storefront, live payments, and an admin to run the whole thing.",
       live: "https://seecom.vercel.app",
+      repo: "https://github.com/wh0isalfred/seecom",
   },
   {
     slug: "samuel-richard",
@@ -34,6 +36,7 @@ export const projects: Project[] = [
     description:
       "A portfolio for an architect — fully editable by the admin, no code needed.",
       live: "https://samuel-richard.vercel.app",
+      repo: "https://github.com/wh0isalfred/samuelRichard",
   },
   {
     slug: "bonsai",
@@ -46,6 +49,7 @@ export const projects: Project[] = [
     description:
       "My Media compression tool — trim the size, keep the quality.",
       live: "https://bonsai-blue-tau.vercel.app",
+      repo: "https://github.com/wh0isalfred/Bonsai",
   },
   
 ];

@@ -1,6 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
-import { IconArrowRight, IconExternalLink } from "@tabler/icons-react";
+import {
+  IconArrowRight,
+  IconExternalLink,
+  IconBrandGithub,
+} from "@tabler/icons-react";
 import type { Project } from "../data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
@@ -13,18 +16,13 @@ export default function ProjectCard({ project }: { project: Project }) {
           <span className="pf-dots">
             <i /><i /><i />
           </span>
-          <a
-            className="pf-url"
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a className="pf-url" href={project.live} target="_blank" rel="noopener noreferrer">
             <span className="d">{domain}</span>
             <IconExternalLink size={11} stroke={2} />
           </a>
         </div>
 
-        <Link href={`/portfolio/${project.slug}`} className="pf-shot">
+        <a className="pf-shot" href={project.live} target="_blank" rel="noopener noreferrer">
           <Image
             src={project.cover}
             alt={`${project.title} screenshot`}
@@ -41,17 +39,28 @@ export default function ProjectCard({ project }: { project: Project }) {
               </span>
             </span>
           </div>
-        </Link>
+        </a>
       </div>
 
-      <Link href={`/portfolio/${project.slug}`} className="pf-info">
+      <div className="pf-info">
         <span className="pf-num">{project.num}</span>
-        <span className="pf-nm">
-          {project.lead}
-          <em>{project.accent}</em>
-        </span>
-        <span className="pf-tc">{project.tech}</span>
-      </Link>
+        <div className="pf-meta">
+          <span className="pf-nm">
+            {project.lead}
+            <em>{project.accent}</em>
+          </span>
+          <span className="pf-tc">{project.tech}</span>
+        </div>
+        <a
+          className="pf-repo"
+          href={project.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub repository"
+        >
+          <IconBrandGithub size={18} stroke={1.8} />
+        </a>
+      </div>
     </div>
   );
 }

@@ -128,10 +128,12 @@ body { font-family: var(--font-body), serif; overflow-x: hidden; }
 .pf-oe { display:inline-flex; align-items:center; gap:7px; margin-top:12px; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--color-gold); }
 .pf-oe .arr { color:var(--color-oxblood); display:flex; }
 
-.pf-info { display:flex; align-items:baseline; gap:12px; padding:16px 4px 0; }
-.pf-num { font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--color-gold); }
+.pf-info { display:flex; align-items:center; gap:12px; padding:16px 4px 0; }
+.pf-num { font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--color-gold); flex-shrink:0; }
+.pf-meta { display:flex; flex-direction:column; gap:3px; min-width:0; }
 .pf-nm { font-family:var(--font-display); font-weight:700; font-size:22px; line-height:1; color:var(--color-cream); }
 .pf-nm em { font-style:normal; color:var(--color-gold); }
-.pf-tc { margin-left:auto; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted-2); text-align:right; max-width:130px; }
-
+.pf-tc { font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted-2); }
+.pf-repo { margin-left:auto; color:var(--color-muted-2); display:flex; flex-shrink:0; transition:color .2s, transform .2s; }
+.pf-repo:hover { color:var(--color-gold); transform:translateY(-2px); }
 @media (max-width:640px){ .pf-wrap{ padding:120px 24px 80px; } }
