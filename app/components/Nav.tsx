@@ -6,7 +6,7 @@ import { IconArrowsMove } from "@tabler/icons-react";
 
 const LINKS = [
   { label: "Home", href: "/" },
-//   { label: "Work", href: "/work" },
+  // { label: "Work", href: "/work" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -19,7 +19,11 @@ export default function Nav() {
   const dividerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
-  
+
+  // close the menu on every route change
+  useEffect(() => {
+    pillRef.current?.classList.remove("open");
+  }, [pathname]);
 
   useEffect(() => {
     const nav = navRef.current!;
@@ -27,6 +31,24 @@ export default function Nav() {
     const items = itemsRef.current!;
     const ndiv = dividerRef.current!;
     const ham = pill.querySelector<HTMLButtonElement>(".ham")!;
+
+    const mq = window.matchMedia("(max-width: 640px)");
+    const isMobile = () => mq.matches;
+
+    // mobile is pinned (no dragging) — clear any inline position from a prior drag
+    const resetPosition = () => {
+      nav.style.left = "";
+      nav.style.right = "";
+      nav.style.top = "";
+      pill.classList.remove("invert");
+      items.prepend(ndiv);
+    };
+    const applyMode = () => {
+      if (isMobile()) resetPosition();
+    };
+    applyMode();
+    mq.addEventListener("change", applyMode);
+
     const onDocClick = (e: MouseEvent) => {
       if (!pill.classList.contains("open")) return;
       if (nav.contains(e.target as Node)) return;
@@ -34,6 +56,12 @@ export default function Nav() {
     };
 
     const openPill = () => {
+      // mobile: simple vertical dropdown, skip the measure/invert logic
+      if (isMobile()) {
+        resetPosition();
+        pill.classList.add("open");
+        return;
+      }
       const r = pill.getBoundingClientRect();
       const delta = items.scrollWidth;
       const overflow = r.left + r.width + delta + 18 > window.innerWidth;
@@ -61,6 +89,7 @@ export default function Nav() {
     };
 
     const down = (x: number, y: number) => {
+      if (isMobile()) return; // no dragging on mobile
       drag = true; moved = false;
       const r = nav.getBoundingClientRect();
       sx = x; sy = y; sLeft = r.left; sTop = r.top;
@@ -89,7 +118,8 @@ export default function Nav() {
 
     const md = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest(".nitem")) return;
-      down(e.clientX, e.clientY); e.preventDefault();
+      down(e.clientX, e.clientY);
+      if (!isMobile()) e.preventDefault();
     };
     const mm = (e: MouseEvent) => move(e.clientX, e.clientY);
     const ts = (e: TouchEvent) => {
@@ -99,18 +129,18 @@ export default function Nav() {
     const tm = (e: TouchEvent) => { const t = e.touches[0]; move(t.clientX, t.clientY); };
 
     ham.addEventListener("click", onHam);
-    document.addEventListener("click", onDocClick);  
+    document.addEventListener("click", onDocClick);
     nav.addEventListener("mousedown", md);
     document.addEventListener("mousemove", mm);
     document.addEventListener("mouseup", up);
     nav.addEventListener("touchstart", ts, { passive: true });
     document.addEventListener("touchmove", tm, { passive: true });
     document.addEventListener("touchend", up);
-    
 
     return () => {
+      mq.removeEventListener("change", applyMode);
       ham.removeEventListener("click", onHam);
-      document.addEventListener("click", onDocClick);  
+      document.removeEventListener("click", onDocClick); // fixed: was addEventListener
       nav.removeEventListener("mousedown", md);
       document.removeEventListener("mousemove", mm);
       document.removeEventListener("mouseup", up);
