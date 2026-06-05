@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { bluuNext, sentient } from "./fonts";
 import "./globals.css";
+import Atmosphere from "./components/Atmosphere";
 
 export const metadata: Metadata = {
   title: "Alfred Enyinna — Full Stack Engineer",
@@ -13,7 +14,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${bluuNext.variable} ${sentient.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Atmosphere />
+        {children}
+      </body>
     </html>
   );
 }
