@@ -6,7 +6,7 @@ import { IconArrowsMove } from "@tabler/icons-react";
 
 const LINKS = [
   { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
+//   { label: "Work", href: "/work" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
