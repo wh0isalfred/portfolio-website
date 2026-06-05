@@ -7,6 +7,7 @@ export type Project = {
   tech: string;
   cover: string;
   description: string;
+  live: string;
 };
 
 export const projects: Project[] = [
@@ -20,6 +21,7 @@ export const projects: Project[] = [
     cover: "/projects/seecom/cover.jpg",
     description:
       "Nigerian streetwear, end to end — storefront, live payments, and an admin to run the whole thing.",
+      live: "https://seecom.vercel.app",
   },
   {
     slug: "samuel-richard",
@@ -31,6 +33,7 @@ export const projects: Project[] = [
     cover: "/projects/samuel-richard/cover.jpg",
     description:
       "A portfolio for an architect — fully editable by the admin, no code needed.",
+      live: "https://samuel-richard.vercel.app",
   },
   {
     slug: "bonsai",
@@ -42,6 +45,7 @@ export const projects: Project[] = [
     cover: "/projects/bonsai/cover.jpg",
     description:
       "My Media compression tool — trim the size, keep the quality.",
+      live: "https://bonsai-blue-tau.vercel.app",
   },
   
 ];

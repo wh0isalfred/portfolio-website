@@ -1,16 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowRight, IconExternalLink } from "@tabler/icons-react";
 import type { Project } from "../data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const domain = project.live.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
   return (
-    <Link href={`/portfolio/${project.slug}`} className="pf-card">
+    <div className="pf-card">
       <div className="pf-frame">
         <div className="pf-bar">
-          <i /><i /><i />
+          <span className="pf-dots">
+            <i /><i /><i />
+          </span>
+          <a
+            className="pf-url"
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="d">{domain}</span>
+            <IconExternalLink size={11} stroke={2} />
+          </a>
         </div>
-        <div className="pf-shot">
+
+        <Link href={`/portfolio/${project.slug}`} className="pf-shot">
           <Image
             src={project.cover}
             alt={`${project.title} screenshot`}
@@ -27,16 +41,17 @@ export default function ProjectCard({ project }: { project: Project }) {
               </span>
             </span>
           </div>
-        </div>
+        </Link>
       </div>
-      <div className="pf-info">
+
+      <Link href={`/portfolio/${project.slug}`} className="pf-info">
         <span className="pf-num">{project.num}</span>
         <span className="pf-nm">
           {project.lead}
           <em>{project.accent}</em>
         </span>
         <span className="pf-tc">{project.tech}</span>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
