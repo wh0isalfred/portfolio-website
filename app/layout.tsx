@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { bluuNext, sentient } from "./fonts";
 import "./globals.css";
 import Atmosphere from "./components/Atmosphere";
+import Nav from "./components/Nav";
 
 export const metadata: Metadata = {
   title: "Alfred Enyinna — Full Stack Engineer",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en" className={`${bluuNext.variable} ${sentient.variable}`}>
       <body>
         <Atmosphere />
+        <Nav />
         {children}
       </body>
     </html>
