@@ -35,20 +35,6 @@ export default function Nav() {
     const mq = window.matchMedia("(max-width: 640px)");
     const isMobile = () => mq.matches;
 
-    // mobile is pinned (no dragging) — clear any inline position from a prior drag
-    const resetPosition = () => {
-      nav.style.left = "";
-      nav.style.right = "";
-      nav.style.top = "";
-      pill.classList.remove("invert");
-      items.prepend(ndiv);
-    };
-    const applyMode = () => {
-      if (isMobile()) resetPosition();
-    };
-    applyMode();
-    mq.addEventListener("change", applyMode);
-
     const onDocClick = (e: MouseEvent) => {
       if (!pill.classList.contains("open")) return;
       if (nav.contains(e.target as Node)) return;
@@ -56,13 +42,21 @@ export default function Nav() {
     };
 
     const openPill = () => {
-      // mobile: simple vertical dropdown, skip the measure/invert logic
+      const r = pill.getBoundingClientRect();
+
+      // mobile: vertical dropdown, open toward the side with more room
       if (isMobile()) {
-        resetPosition();
+        const menuW = items.offsetWidth || 200;
+        const spaceRight = window.innerWidth - r.left;
+        const spaceLeft = r.right;
+        const opensLeft = menuW + 12 > spaceRight && spaceLeft > spaceRight;
+        pill.classList.toggle("mleft", opensLeft);
+        pill.classList.remove("invert");
         pill.classList.add("open");
         return;
       }
-      const r = pill.getBoundingClientRect();
+
+      // desktop: horizontal expand with smart invert
       const delta = items.scrollWidth;
       const overflow = r.left + r.width + delta + 18 > window.innerWidth;
       if (overflow) {
@@ -89,7 +83,6 @@ export default function Nav() {
     };
 
     const down = (x: number, y: number) => {
-      if (isMobile()) return; // no dragging on mobile
       drag = true; moved = false;
       const r = nav.getBoundingClientRect();
       sx = x; sy = y; sLeft = r.left; sTop = r.top;
@@ -100,7 +93,7 @@ export default function Nav() {
       if (!moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
         moved = true;
         nav.classList.add("dragging");
-        pill.classList.remove("open", "invert");
+        pill.classList.remove("open", "invert", "mleft");
         items.prepend(ndiv);
         nav.style.right = "auto";
         nav.style.left = `${sLeft}px`;
@@ -126,7 +119,10 @@ export default function Nav() {
       if ((e.target as HTMLElement).closest(".nitem")) return;
       const t = e.touches[0]; down(t.clientX, t.clientY);
     };
-    const tm = (e: TouchEvent) => { const t = e.touches[0]; move(t.clientX, t.clientY); };
+    const tm = (e: TouchEvent) => {
+      const t = e.touches[0]; move(t.clientX, t.clientY);
+      if (drag && moved) e.preventDefault(); // block page scroll only while dragging the nav
+    };
 
     ham.addEventListener("click", onHam);
     document.addEventListener("click", onDocClick);
@@ -134,13 +130,12 @@ export default function Nav() {
     document.addEventListener("mousemove", mm);
     document.addEventListener("mouseup", up);
     nav.addEventListener("touchstart", ts, { passive: true });
-    document.addEventListener("touchmove", tm, { passive: true });
+    document.addEventListener("touchmove", tm, { passive: false });
     document.addEventListener("touchend", up);
 
     return () => {
-      mq.removeEventListener("change", applyMode);
       ham.removeEventListener("click", onHam);
-      document.removeEventListener("click", onDocClick); // fixed: was addEventListener
+      document.removeEventListener("click", onDocClick);
       nav.removeEventListener("mousedown", md);
       document.removeEventListener("mousemove", mm);
       document.removeEventListener("mouseup", up);
