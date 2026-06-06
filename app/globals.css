@@ -67,6 +67,9 @@ body { font-family: var(--font-body), serif; overflow-x: hidden; }
 .hname { font-family:var(--font-display); font-weight:700; font-size:clamp(50px,9.5vw,90px); line-height:.94; color:var(--color-cream); letter-spacing:.005em; margin:0; }
 .hname em { font-style:normal; color:var(--color-gold); }
 .hrule { width:58px; height:2px; background:var(--color-oxblood); margin:24px 0 16px; }
+/* hero role line: block flow so the cursor sits at the end of the text, + clean wrap */
+.hero .htitle { display: block; line-height: 1.5; min-height: 21px; }
+.hero .hcursor { vertical-align: -2px; }
 .htitle { font-size:14px; letter-spacing:.18em; text-transform:uppercase; color:var(--color-cream-dim); display:flex; align-items:center; min-height:22px; }
 .htitle .typed { color:var(--color-cream); }
 .hcursor { display:inline-block; width:9px; height:16px; background:var(--color-gold); margin-left:6px; animation:blink 1s steps(1) infinite; }
