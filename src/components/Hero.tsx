@@ -32,7 +32,7 @@ export default function Hero() {
         <div className="hero-photo-col">
           <div className="photo-frame">
             <div className="photo-inner">
-              <img src="/hero.png" alt="Alfred Enyinna" />
+              <img src="/hero.webp" alt="Alfred Enyinna" />
             </div>
             {/* <div className="avail-chip">
               <span className="pulse" /> Available for work
