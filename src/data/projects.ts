@@ -33,7 +33,7 @@ export const projects: Project[] = [
     cover: "/projects/bonsai/cover.jpg",
     url: "bonsai-blue-tau.vercel.app",
     live: "https://bonsai-blue-tau.vercel.app",
-    repo: "https://github.com/wh0isalfred/Bonsai",
+    repo: "https://github.com/wh0isalfred/Bonsai.",
   },
   {
     slug: "tajo",
