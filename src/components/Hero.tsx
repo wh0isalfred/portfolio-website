@@ -17,12 +17,12 @@ export default function Hero() {
           </p>
           <p className="bio">
             Based in Port Harcourt, Nigeria. Currently going deeper into cloud and
-            cybersecurity.
+            cybersecurity.s
           </p>
           <div className="hero-cta">
-            <a href="/resume.pdf" download className="btn btn-grad">
+            {/* <a href="/resume.pdf" download className="btn btn-grad">
               <FiDownload /> Download Resume
-            </a>
+            </a> */}
             <a href="#contact" className="btn btn-ghost">
               <FiMail /> Get in Touch
             </a>
