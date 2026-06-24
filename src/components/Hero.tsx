@@ -1,5 +1,5 @@
-import { FiDownload, FiMail } from "react-icons/fi";
-
+import { FiMail } from "react-icons/fi";
+// FiDownload
 export default function Hero() {
   return (
     <header className="hero" id="home">
