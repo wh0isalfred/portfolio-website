@@ -46,7 +46,6 @@ export default function MouseTrail() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(hover: none)").matches) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -81,12 +80,12 @@ export default function MouseTrail() {
     let lastX = 0;
     let lastY = 0;
     let lastT = performance.now();
+    let hasLast = false;
     const MAX_PARTICLES = 170;
 
-    const onMove = (e: MouseEvent) => {
-      const now = performance.now();
+    const spawnAt = (x: number, y: number, now: number) => {
       const dt = Math.max(1, now - lastT);
-      const dist = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+      const dist = hasLast ? Math.hypot(x - lastX, y - lastY) : 0;
       const speed = dist / dt; // px per ms
 
       const count = Math.max(1, Math.min(5, Math.round(speed * 14)));
@@ -97,24 +96,63 @@ export default function MouseTrail() {
         const r = Math.random() * spread;
         const big = Math.random() < 0.08;
         particles.push({
-          x: e.clientX + Math.cos(angle) * r,
-          y: e.clientY + Math.sin(angle) * r,
-          vx: (Math.random() - 0.5) * 0.25 + (e.clientX - lastX) * 0.02,
+          x: x + Math.cos(angle) * r,
+          y: y + Math.sin(angle) * r,
+          vx: (Math.random() - 0.5) * 0.25 + (hasLast ? (x - lastX) * 0.02 : 0),
           vy: -0.18 - Math.random() * 0.22,
           age: 0,
           lifeMs: 900 + Math.random() * 700,
           born: now,
-          baseSize: (big ? 5.5 + Math.random() * 2.5 : 2.4 + Math.random() * 2),
+          baseSize: big ? 5.5 + Math.random() * 2.5 : 2.4 + Math.random() * 2,
           rotation: Math.random() * Math.PI * 2,
           rotationSpeed: ((Math.random() - 0.5) * 15 * Math.PI) / 180 / 60,
         });
       }
 
-      lastX = e.clientX;
-      lastY = e.clientY;
+      lastX = x;
+      lastY = y;
       lastT = now;
+      hasLast = true;
     };
-    window.addEventListener("mousemove", onMove);
+
+    const onMouseMove = (e: MouseEvent) => spawnAt(e.clientX, e.clientY, performance.now());
+    window.addEventListener("mousemove", onMouseMove);
+
+    // touch: spawn along finger movement, and give a tap a small burst so a
+    // single touch (no movement) still shows feedback
+    const burstAt = (x: number, y: number, now: number) => {
+      for (let i = 0; i < 4 && particles.length < MAX_PARTICLES; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.random() * 6;
+        particles.push({
+          x: x + Math.cos(angle) * r,
+          y: y + Math.sin(angle) * r,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: -0.2 - Math.random() * 0.25,
+          age: 0,
+          lifeMs: 900 + Math.random() * 700,
+          born: now,
+          baseSize: 2.4 + Math.random() * 2.4,
+          rotation: Math.random() * Math.PI * 2,
+          rotationSpeed: ((Math.random() - 0.5) * 15 * Math.PI) / 180 / 60,
+        });
+      }
+      lastX = x;
+      lastY = y;
+      lastT = now;
+      hasLast = true;
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      const now = performance.now();
+      for (const t of Array.from(e.touches)) burstAt(t.clientX, t.clientY, now);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const now = performance.now();
+      for (const t of Array.from(e.touches)) spawnAt(t.clientX, t.clientY, now);
+    };
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     function drawTile(p: Particle, size: number, alpha: number, rgb: [number, number, number]) {
       ctx.save();
@@ -208,7 +246,9 @@ export default function MouseTrail() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("resize", refreshHotRects);
       window.removeEventListener("scroll", refreshHotRects);
-      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
       window.clearInterval(rectInterval);
       cancelAnimationFrame(raf);
     };
