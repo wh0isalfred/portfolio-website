@@ -1,3 +1,5 @@
+import { FiMail } from "react-icons/fi";
+
 export default function Hero() {
   return (
     <header className="lego-hero" id="home">
@@ -39,7 +41,7 @@ export default function Hero() {
             See my work <span className="arrow">&rarr;</span>
           </a>
           <a href="#contact" className="lego-btn lego-btn-outline" data-trail-interactive>
-            Contact me <span className="arrow">&rarr;</span>
+            <FiMail /> Get in Touch <span className="arrow">&rarr;</span>
           </a>
         </div>
       </div>
