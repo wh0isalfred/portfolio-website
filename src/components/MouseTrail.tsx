@@ -50,8 +50,9 @@ export default function MouseTrail() {
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const rawCtx = canvas.getContext("2d");
+    if (!rawCtx) return;
+    const ctx: CanvasRenderingContext2D = rawCtx;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => {
@@ -173,8 +174,6 @@ export default function MouseTrail() {
           fy = 0;
         for (const rect of hotRects) {
           const pad = 26;
-          const cx = Math.max(rect.left - pad, Math.min(p.x, rect.right + pad));
-          const cy = Math.max(rect.top - pad, Math.min(p.y, rect.bottom + pad));
           const inside =
             p.x > rect.left - pad && p.x < rect.right + pad && p.y > rect.top - pad && p.y < rect.bottom + pad;
           if (inside) {
