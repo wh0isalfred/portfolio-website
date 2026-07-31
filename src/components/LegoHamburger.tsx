@@ -59,8 +59,11 @@ export default function LegoHamburger({
         onClick={() => setOpen((o) => !o)}
         data-trail-interactive
       >
-        {Array.from({ length: 9 }).map((_, i) => (
-          <span key={i} className="stud" />
+        {[0, 1, 2].map((row) => (
+          <span key={row} className="ham-row">
+            <span className="ham-dot" />
+            <span className="ham-bar" />
+          </span>
         ))}
       </button>
 
