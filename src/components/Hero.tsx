@@ -35,10 +35,10 @@ export default function Hero() {
         </p>
 
         <div className="lego-cta">
-          <a href="#work" className="lego-btn lego-btn-fill" data-trail-color="cyan-mix">
+          <a href="#work" className="lego-btn lego-btn-fill" data-trail-interactive>
             See my work <span className="arrow">&rarr;</span>
           </a>
-          <a href="#contact" className="lego-btn lego-btn-outline" data-trail-color="contact">
+          <a href="#contact" className="lego-btn lego-btn-outline" data-trail-interactive>
             Contact me <span className="arrow">&rarr;</span>
           </a>
         </div>

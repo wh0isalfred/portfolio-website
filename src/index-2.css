@@ -1,21 +1,21 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --indigo:#C8A86B; --indigo-deep:#B89355; --cyan:#C8A86B; --cyan-deep:#DDC08A;
-  --brass:#C8A86B; --terracotta:#A46042;
-  --grad:linear-gradient(120deg,#C8A86B 0%,#D4B57C 55%,#DDC08A 100%);
-  --grad-soft:linear-gradient(120deg,rgba(200,168,107,.14),rgba(200,168,107,.08));
+  --indigo:#59D6FF; --indigo-deep:#2CCFB7; --cyan:#2CCFB7; --cyan-deep:#59D6FF;
+  --brass:#C7A55A; --terracotta:#A46042;
+  --grad:linear-gradient(120deg,#59D6FF 0%,#4FE0C8 55%,#2CCFB7 100%);
+  --grad-soft:linear-gradient(120deg,rgba(89,214,255,.14),rgba(44,207,183,.14));
   --display:'Space Grotesk',sans-serif; --body:'Geist','Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
 }
 html[data-theme="dark"]{
-  --bg:#111214; --bg-2:#16171A; --surface:#1C1E23; --surface-2:#252932;
-  --border:#2A2D33; --border-2:#363A42; --text:#F2EEE8; --muted:#778090; --faint:#4B505A;
-  --glow:rgba(200,168,107,.3); --dotgrid:rgba(255,255,255,.02);
+  --bg:#07131F; --bg-2:#0A1926; --surface:#102338; --surface-2:#183654;
+  --border:#1C3349; --border-2:#23425C; --text:#F6F7F8; --muted:#9FB3C8; --faint:#5E7893;
+  --glow:rgba(89,214,255,.35); --dotgrid:rgba(255,255,255,.02);
 }
 html[data-theme="light"]{
-  --bg:#F2EEE8; --bg-2:#EAE5DC; --surface:#FFFFFF; --surface-2:#EAE5DC;
-  --border:#DDD6C9; --border-2:#C9C0AE; --text:#111214; --muted:#5B6270; --faint:#8A92A0;
-  --glow:rgba(200,168,107,.2); --dotgrid:rgba(0,0,0,.03);
+  --bg:#F6F7F8; --bg-2:#EDEFF2; --surface:#FFFFFF; --surface-2:#EDEFF2;
+  --border:#DCE1E7; --border-2:#C7CFD8; --text:#07131F; --muted:#3F5266; --faint:#7C8CA0;
+  --glow:rgba(89,214,255,.2); --dotgrid:rgba(0,0,0,.03);
 }
 
 body{
@@ -233,11 +233,7 @@ img{display:block;max-width:100%}
 .lego-nav-wrap{position:fixed;top:20px;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:0 20px}
 .lego-nav{width:100%;max-width:1080px;display:flex;align-items:center;justify-content:space-between;
   background:color-mix(in srgb,var(--surface) 78%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid var(--border-2);border-radius:100px;padding:6px 8px 6px 20px;
-  transition:max-width .4s cubic-bezier(.4,0,.2,1)}
-@media(min-width:901px){
-  .lego-nav-wrap.scrolled .lego-nav{max-width:600px}
-}
+  border:1px solid var(--border-2);border-radius:100px;padding:6px 8px 6px 20px}
 .pixel-logo-canvas{display:block;width:110px;height:28px}
 
 /* ---- LEGO hamburger ---- */
