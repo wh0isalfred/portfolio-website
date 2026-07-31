@@ -14,6 +14,16 @@ const SOCIAL = [
   { label: "Resume", href: "/resume.pdf" },
 ];
 
+const itemPop = {
+  initial: { opacity: 0, y: 10, scale: 0.85 },
+  animate: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { delay: 0.12 + i * 0.05, type: "spring" as const, bounce: 0.55, duration: 0.45 },
+  }),
+};
+
 export default function LegoHamburger({
   theme,
   toggleTheme,
@@ -24,7 +34,6 @@ export default function LegoHamburger({
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  // close on Escape, and as a robustness fallback, close on any outside pointer down
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -38,6 +47,8 @@ export default function LegoHamburger({
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [open]);
+
+  const allItems = [...LINKS, ...SOCIAL];
 
   return (
     <div className="lego-ham-wrap" ref={wrapRef}>
@@ -56,7 +67,6 @@ export default function LegoHamburger({
       <AnimatePresence>
         {open && (
           <>
-            {/* invisible full-screen backdrop, purely for outside-click detection */}
             <motion.div
               className="lego-menu-backdrop"
               initial={{ opacity: 0 }}
@@ -64,60 +74,68 @@ export default function LegoHamburger({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
             />
+            {/* the menu "pops" out of the hamburger: starts as a tiny circle at
+                its corner and blooms into the rounded panel, with a spring
+                overshoot so it settles with a visible bounce */}
             <motion.div
               className="lego-menu"
               style={{ transformOrigin: "top right" }}
-              initial={{ opacity: 0, scale: 0.35, y: -16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.5, y: -10 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 0.05, borderRadius: "50%" }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                borderRadius: "20px",
+                transition: { type: "spring", bounce: 0.42, duration: 0.55 },
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.15,
+                borderRadius: "50%",
+                transition: { duration: 0.22, ease: "easeIn" },
+              }}
             >
-              {LINKS.map((l, i) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="lego-menu-item">
-                  <motion.span
-                    className="reveal"
-                    initial={{ clipPath: "inset(0 100% 0 0)" }}
-                    animate={{ clipPath: "inset(0 0% 0 0)" }}
-                    transition={{ duration: 0.22, delay: 0.08 + i * 0.05, ease: "easeOut" }}
-                  >
-                    {l.label}
-                  </motion.span>
-                </a>
-              ))}
               <motion.div
-                className="sub"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.08 + LINKS.length * 0.05 }}
+                animate={{ opacity: 1, transition: { delay: 0.15, duration: 0.15 } }}
+                exit={{ opacity: 0, transition: { duration: 0.08 } }}
               >
-                Elsewhere
-              </motion.div>
-              {SOCIAL.map((l, i) => (
-                <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="lego-menu-item">
-                  <motion.span
-                    className="reveal"
-                    initial={{ clipPath: "inset(0 100% 0 0)" }}
-                    animate={{ clipPath: "inset(0 0% 0 0)" }}
-                    transition={{
-                      duration: 0.22,
-                      delay: 0.14 + LINKS.length * 0.05 + i * 0.05,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {l.label}
-                  </motion.span>
-                </a>
-              ))}
-              <motion.div
-                className="theme-row"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 + (LINKS.length + SOCIAL.length) * 0.05 }}
-              >
-                <span>Theme</span>
-                <span onClick={toggleTheme} style={{ cursor: "pointer", color: "var(--indigo)" }}>
-                  {theme === "dark" ? "Dark" : "Light"}
-                </span>
+                {LINKS.map((l, i) => (
+                  <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="lego-menu-item">
+                    <motion.span
+                      className="reveal"
+                      variants={itemPop}
+                      initial="initial"
+                      animate="animate"
+                      custom={i}
+                    >
+                      {l.label}
+                    </motion.span>
+                  </a>
+                ))}
+                <motion.div
+                  className="sub"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { delay: 0.14 + LINKS.length * 0.05 } }}
+                >
+                  Elsewhere
+                </motion.div>
+                {SOCIAL.map((l, i) => (
+                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="lego-menu-item">
+                    <motion.span className="reveal" variants={itemPop} initial="initial" animate="animate" custom={LINKS.length + i}>
+                      {l.label}
+                    </motion.span>
+                  </a>
+                ))}
+                <motion.div
+                  className="theme-row"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { delay: 0.2 + allItems.length * 0.05 } }}
+                >
+                  <span>Theme</span>
+                  <span onClick={toggleTheme} style={{ cursor: "pointer", color: "var(--indigo)" }}>
+                    {theme === "dark" ? "Dark" : "Light"}
+                  </span>
+                </motion.div>
               </motion.div>
             </motion.div>
           </>

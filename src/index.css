@@ -241,15 +241,16 @@ img{display:block;max-width:100%}
 .pixel-logo-canvas{display:block;width:110px;height:28px}
 
 /* ---- LEGO hamburger ---- */
-.lego-ham{background:var(--surface-2);border:1px solid var(--border-2);border-radius:10px;width:34px;height:34px;
-  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:2.5px;place-items:center;
-  cursor:pointer;transition:transform .25s ease,border-color .2s ease}
-.lego-ham:hover{border-color:var(--indigo)}
-.lego-ham .stud{width:3.5px;height:3.5px;border-radius:50%;background:var(--text);opacity:.8;transition:transform .3s ease,opacity .3s ease}
-.lego-ham:hover .stud{transform:scale(1.2) translateY(-0.5px)}
-.lego-ham:hover .stud:nth-child(2n){transform:scale(1.2) translateY(0.5px)}
-.lego-ham.open{transform:rotate(90deg)}
-.lego-ham:active{transform:scale(.88)}
+.lego-ham{background:none;border:none;padding:0;width:34px;height:34px;
+  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3.5px;place-items:center;
+  cursor:pointer;transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.lego-ham .stud{width:3.5px;height:3.5px;border-radius:50%;background:var(--text);opacity:.8;transition:transform .3s ease,opacity .3s ease,background .2s ease}
+.lego-ham:hover .stud{transform:scale(1.25) translateY(-0.5px);opacity:1}
+.lego-ham:hover .stud:nth-child(2n){transform:scale(1.25) translateY(0.5px)}
+.lego-ham.open{transform:rotate(100deg)}
+.lego-ham.open .stud{background:var(--indigo)}
+.lego-ham:active{transform:scale(.82)}
+.lego-ham.open:active{transform:rotate(100deg) scale(.82)}
 
 .lego-ham-wrap{position:relative}
 .lego-menu-backdrop{position:fixed;inset:0;z-index:99;background:rgba(3,9,15,.55);backdrop-filter:blur(4px)}
