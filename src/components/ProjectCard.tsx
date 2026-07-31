@@ -46,7 +46,29 @@ export default function ProjectCard({ project }: { project: Project }) {
           <span className="card-num">{project.num}</span>
           <h3 className="card-title">{project.title}</h3>
         </div>
-        <p className="card-desc">{project.description}</p>
+        <p className="card-tagline">{project.tagline}</p>
+
+        <p className="card-stat">
+          $ stack: {project.tech.join(", ")}
+        </p>
+
+        <p className="card-desc">
+          <span className="case-label">Problem —</span> {project.problem}
+        </p>
+        <p className="card-desc">
+          <span className="case-label">Build —</span> {project.build}
+        </p>
+
+        <p className="card-outcome">→ {project.outcome}</p>
+
+        {project.highlights && project.highlights.length > 0 && (
+          <ul className="card-highlights">
+            {project.highlights.slice(0, 3).map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        )}
+
         <div className="tags">
           {project.tech.map((t) => (
             <span key={t} className="tag">

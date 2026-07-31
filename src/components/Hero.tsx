@@ -17,7 +17,7 @@ export default function Hero() {
           </p>
           <p className="bio">
             Based in Port Harcourt, Nigeria. Currently going deeper into cloud and
-            cybersecurity.s
+            cybersecurity.
           </p>
           <div className="hero-cta">
             {/* <a href="/resume.pdf" download className="btn btn-grad">
