@@ -1,4 +1,5 @@
 import { useTheme } from "./context/useTheme";
+import MouseTrail from "./components/MouseTrail";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
@@ -10,6 +11,7 @@ export default function App() {
 
   return (
     <>
+      <MouseTrail />
       <div className="ambient" aria-hidden="true" />
       <div className="dots" aria-hidden="true" />
 

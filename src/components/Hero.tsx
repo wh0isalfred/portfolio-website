@@ -1,47 +1,52 @@
-import { FiMail } from "react-icons/fi";
-// FiDownload
 export default function Hero() {
   return (
-    <header className="hero" id="home">
-      <div className="wrap hero-grid">
-        <div className="hero-left" id="about">
-          <p className="eyebrow">Hi, I am</p>
-          <h1>
-            <span className="grad">Alfred Enyinna</span>
-          </h1>
-          <p className="role">Software Engineer</p>
-          <p className="bio">
-            I build <b>secure, scalable web applications</b> with{" "}
-            <span className="k">React</span>, <span className="k">Next.js</span> and
-            modern tools — turning real problems into systems that actually help people.
-          </p>
-          <p className="bio">
-            Based in Port Harcourt, Nigeria. Currently going deeper into cloud and
-            cybersecurity.
-          </p>
-          <div className="hero-cta">
-            {/* <a href="/resume.pdf" download className="btn btn-grad">
-              <FiDownload /> Download Resume
-            </a> */}
-            <a href="#contact" className="btn btn-ghost">
-              <FiMail /> Get in Touch
-            </a>
-          </div>
-        </div>
+    <header className="lego-hero" id="home">
+      <div className="lego-hero-bg" aria-hidden="true" />
 
-        <div className="hero-photo-col">
-          <div className="photo-frame">
-            <div className="photo-inner">
-              <img src="/hero.webp" alt="Alfred Enyinna" />
-            </div>
-            {/* <div className="avail-chip">
-              <span className="pulse" /> Available for work
-            </div> */}
-            <div className="scribble">
-              <span className="arrow">↖</span> Let&apos;s build cool things!
-            </div>
-          </div>
+      <div className="wrap lego-hero-in">
+        <p className="lego-eyebrow">
+          <span className="sl">/</span> hello
+        </p>
+
+        <h1 className="lego-h1">
+          <span className="line">
+            I{" "}
+            <span className="lego-word" aria-label="build">
+              {"build".split("").map((ch, i) => (
+                <span key={i} className="lego-brick" style={{ animationDelay: `${0.15 + i * 0.07}s` }}>
+                  {ch}
+                </span>
+              ))}
+            </span>
+          </span>
+          <span className="line">software that</span>
+          <span className="line">
+            <span className="grad-word">people</span> actually <span className="grad-word">use</span>.
+          </span>
+        </h1>
+
+        <p className="lego-sub">
+          Software Engineer.
+          <br />
+          Cloud Security student.
+        </p>
+        <p className="lego-loc">
+          <span className="dot" /> Port Harcourt, Nigeria
+        </p>
+
+        <div className="lego-cta">
+          <a href="#work" className="lego-btn lego-btn-fill" data-trail-color="cyan-mix">
+            See my work <span className="arrow">&rarr;</span>
+          </a>
+          <a href="#contact" className="lego-btn lego-btn-outline" data-trail-color="contact">
+            Contact me <span className="arrow">&rarr;</span>
+          </a>
         </div>
+      </div>
+
+      <div className="lego-scroll">
+        SCROLL TO EXPLORE
+        <span className="pulse-dot" />
       </div>
     </header>
   );

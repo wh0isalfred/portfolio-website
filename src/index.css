@@ -1,20 +1,21 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --indigo:#6366F1; --indigo-deep:#4F46E5; --cyan:#22D3EE; --cyan-deep:#06B6D4;
-  --grad:linear-gradient(120deg,#6366F1 0%,#818CF8 45%,#22D3EE 100%);
-  --grad-soft:linear-gradient(120deg,rgba(99,102,241,.16),rgba(34,211,238,.16));
-  --display:'Space Grotesk',sans-serif; --body:'Inter',sans-serif;
+  --indigo:#59D6FF; --indigo-deep:#2CCFB7; --cyan:#2CCFB7; --cyan-deep:#59D6FF;
+  --brass:#C7A55A; --terracotta:#A46042;
+  --grad:linear-gradient(120deg,#59D6FF 0%,#4FE0C8 55%,#2CCFB7 100%);
+  --grad-soft:linear-gradient(120deg,rgba(89,214,255,.14),rgba(44,207,183,.14));
+  --display:'Space Grotesk',sans-serif; --body:'Geist','Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
 }
 html[data-theme="dark"]{
-  --bg:#08080C; --bg-2:#0C0C12; --surface:#13131C; --surface-2:#1A1A26;
-  --border:#23232F; --border-2:#2E2E3D; --text:#F4F4F5; --muted:#9CA3AF; --faint:#6B7280;
-  --glow:rgba(99,102,241,.45); --dotgrid:rgba(255,255,255,.025);
+  --bg:#07131F; --bg-2:#0A1926; --surface:#102338; --surface-2:#183654;
+  --border:#1C3349; --border-2:#23425C; --text:#F6F7F8; --muted:#9FB3C8; --faint:#5E7893;
+  --glow:rgba(89,214,255,.35); --dotgrid:rgba(255,255,255,.02);
 }
 html[data-theme="light"]{
-  --bg:#FAFAFB; --bg-2:#F4F4F6; --surface:#FFFFFF; --surface-2:#F4F4F6;
-  --border:#E7E5E4; --border-2:#D4D4D8; --text:#161616; --muted:#52525B; --faint:#A1A1AA;
-  --glow:rgba(99,102,241,.25); --dotgrid:rgba(0,0,0,.03);
+  --bg:#F6F7F8; --bg-2:#EDEFF2; --surface:#FFFFFF; --surface-2:#EDEFF2;
+  --border:#DCE1E7; --border-2:#C7CFD8; --text:#07131F; --muted:#3F5266; --faint:#7C8CA0;
+  --glow:rgba(89,214,255,.2); --dotgrid:rgba(0,0,0,.03);
 }
 
 body{
@@ -223,3 +224,98 @@ img{display:block;max-width:100%}
   border-bottom:1px solid var(--border);display:flex;flex-direction:column;padding:10px 0}
 .nav-drawer a{padding:14px 32px;font-size:16px;font-weight:500;color:var(--muted);transition:color .2s,background .2s}
 .nav-drawer a:hover{color:var(--text);background:var(--surface)}
+
+/* ================= LEGO HERO REDESIGN ================= */
+
+.mouse-trail-canvas{position:fixed;inset:0;z-index:200;pointer-events:none}
+
+/* ---- Nav pill ---- */
+.lego-nav-wrap{position:fixed;top:20px;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:0 20px}
+.lego-nav{width:100%;max-width:1080px;display:flex;align-items:center;justify-content:space-between;
+  background:color-mix(in srgb,var(--surface) 78%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border-2);border-radius:100px;padding:6px 8px 6px 20px}
+.pixel-logo-canvas{display:block;width:110px;height:28px}
+
+/* ---- LEGO hamburger ---- */
+.lego-ham{background:var(--surface-2);border:1px solid var(--border-2);border-radius:10px;width:34px;height:34px;
+  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:2.5px;place-items:center;
+  cursor:pointer;transition:transform .25s ease,border-color .2s ease}
+.lego-ham:hover{border-color:var(--indigo)}
+.lego-ham .stud{width:3.5px;height:3.5px;border-radius:50%;background:var(--text);opacity:.8;transition:transform .3s ease,opacity .3s ease}
+.lego-ham:hover .stud{transform:scale(1.2) translateY(-0.5px)}
+.lego-ham:hover .stud:nth-child(2n){transform:scale(1.2) translateY(0.5px)}
+.lego-ham.open{transform:rotate(90deg)}
+.lego-ham:active{transform:scale(.88)}
+
+.lego-menu-overlay{position:fixed;inset:0;z-index:99;background:rgba(3,9,15,.72);backdrop-filter:blur(6px);
+  display:flex;align-items:flex-start;justify-content:center;padding-top:100px}
+.lego-menu{background:var(--surface);border:1px solid var(--border-2);border-radius:20px;padding:14px;
+  width:min(320px,90vw);box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.lego-menu a{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-radius:12px;
+  color:var(--text);font-family:var(--display);font-weight:500;font-size:15px}
+.lego-menu a:hover{background:var(--surface-2);color:var(--indigo)}
+.lego-menu .sub{font-family:var(--mono);font-size:11px;color:var(--faint);padding:10px 16px 4px}
+.lego-menu .theme-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;margin-top:6px;
+  border-top:1px solid var(--border);font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* ---- Hero ---- */
+.lego-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px 0 60px;overflow:hidden}
+.lego-hero-bg{position:absolute;inset:0;z-index:0;
+  background-image:url('/hero-lego.png');background-repeat:no-repeat;
+  background-size:cover;background-position:64% 32%}
+.lego-hero-bg::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 22%,transparent 65%);z-index:1}
+.lego-hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,var(--bg) 0%,transparent 24%);z-index:1}
+.lego-hero-in{position:relative;z-index:2}
+.lego-eyebrow{font-family:var(--mono);font-size:13px;color:var(--indigo);margin-bottom:18px;display:flex;align-items:center;gap:6px}
+.lego-eyebrow .sl{color:var(--faint)}
+.lego-h1{font-family:var(--display);font-weight:600;font-size:clamp(38px,5.6vw,64px);line-height:1.08;
+  letter-spacing:-.02em;color:var(--text);max-width:680px}
+.lego-h1 .line{display:block}
+.lego-word{display:inline-flex}
+.lego-brick{display:inline-block;position:relative;font-family:var(--display);font-weight:700;
+  color:var(--bg);background:linear-gradient(180deg,#F6F7F8 0%,#D9DEE4 100%);
+  padding:2px 6px 6px;margin:0 1px;border-radius:5px;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.18), inset 0 2px 0 rgba(255,255,255,.7), 0 3px 6px rgba(0,0,0,.3);
+  transform:translateY(-36px);opacity:0;animation:brickDrop .55s cubic-bezier(.2,1.4,.4,1) forwards}
+.lego-brick::before{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:8px;height:8px;
+  border-radius:50%;background:linear-gradient(180deg,#fff,#C7CFD8)}
+.lego-h1 .grad-word{background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.lego-sub{margin-top:26px;font-family:var(--mono);font-size:14.5px;color:var(--muted);line-height:1.9}
+.lego-loc{display:flex;align-items:center;gap:8px;margin-top:4px;color:var(--muted)}
+.lego-loc .dot{width:6px;height:6px;border-radius:50%;background:var(--brass)}
+
+.lego-cta{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+.lego-btn{position:relative;display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:600;
+  font-size:14px;padding:15px 26px;border-radius:12px;cursor:pointer;overflow:hidden;border:1px solid transparent;
+  transition:transform .2s ease}
+.lego-btn:hover{transform:translateY(-2px)}
+.lego-btn-fill{background:var(--grad);color:#04141F}
+.lego-btn-outline{background:transparent;border-color:var(--border-2);color:var(--text)}
+.lego-btn-outline:hover{border-color:var(--indigo)}
+.lego-btn .arrow{display:inline-block;opacity:0;transform:translateX(-6px);transition:all .25s ease;width:0}
+.lego-btn:hover .arrow{opacity:1;transform:translateX(0);width:auto}
+
+.lego-scroll{position:absolute;bottom:34px;left:0;right:0;display:flex;flex-direction:column;align-items:center;
+  gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint);z-index:2}
+.lego-scroll .pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--indigo);position:relative}
+.lego-scroll .pulse-dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;background:var(--indigo);opacity:.4;
+  animation:pulse 1.8s ease-out infinite}
+
+@keyframes brickDrop{
+  0%{transform:translateY(-36px) rotate(-4deg);opacity:0}
+  60%{transform:translateY(4px) rotate(1deg);opacity:1}
+  100%{transform:translateY(0) rotate(0);opacity:1}
+}
+
+@media(max-width:900px){
+  .lego-hero{padding:110px 0 50px;min-height:92vh}
+  .lego-hero-bg{background-position:70% 26%;background-size:cover}
+  .lego-hero-bg::before{background:linear-gradient(180deg,var(--bg) 0%,rgba(7,19,31,.75) 38%,rgba(7,19,31,.55) 100%)}
+  .lego-hero-bg::after{background:linear-gradient(to top,var(--bg) 0%,transparent 30%)}
+  .lego-cta{flex-direction:column}
+  .lego-btn{justify-content:center}
+}
