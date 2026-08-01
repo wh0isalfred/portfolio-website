@@ -34,7 +34,7 @@ export const projects: Project[] = [
     ],
     cover: "/projects/kit/cover.jpg",
     url: "kitacademy.net",
-    live: "https://kitacademy.net",
+    live: "https://www.kitacademy.net/",
     repo: "",
   },
   {
