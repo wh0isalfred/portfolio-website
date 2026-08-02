@@ -28,6 +28,7 @@ export default function App() {
     <>
       <MouseTrail />
       <div className="ambient" aria-hidden="true" />
+      <div className="grain" aria-hidden="true" />
       <div className="dots" aria-hidden="true" />
 
       <Navbar theme={theme} toggle={toggle} />
