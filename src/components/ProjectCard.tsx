@@ -5,15 +5,17 @@ import type { Project } from "../data/projects";
 export default function ProjectCard({
   project,
   onOpenCaseStudy,
+  size = "standard",
 }: {
   project: Project;
   onOpenCaseStudy: (project: Project) => void;
+  size?: "featured" | "standard" | "small";
 }) {
   const [imgOk, setImgOk] = useState(true);
 
   return (
     <article
-      className="card"
+      className={`card card--${size}`}
       onClick={() => onOpenCaseStudy(project)}
       role="button"
       tabIndex={0}
