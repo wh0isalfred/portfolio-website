@@ -12,6 +12,7 @@ export type Project = {
   url: string;
   live: string;
   repo: string;
+  render: boolean;
 };
 
 export const projects: Project[] = [
@@ -34,8 +35,9 @@ export const projects: Project[] = [
     ],
     cover: "/projects/kit/cover.jpg",
     url: "kitacademy.net",
-    live: "https://www.kitacademy.net/",
+    live: "https://kitacademy.net",
     repo: "",
+    render: true,
   },
   {
     slug: "seecom",
@@ -53,6 +55,7 @@ export const projects: Project[] = [
     url: "seecom.vercel.app",
     live: "https://seecom.vercel.app",
     repo: "https://github.com/wh0isalfred/seecom",
+    render: true,
   },
   {
     slug: "sdmembs",
@@ -75,6 +78,7 @@ export const projects: Project[] = [
     url: "sdmembs.vercel.app",
     live: "https://sdmembs.vercel.app",
     repo: "https://github.com/wh0isalfred/sdmembs",
+    render: true,
   },
   {
     slug: "bonsai",
@@ -91,6 +95,7 @@ export const projects: Project[] = [
     url: "bonsai-blue-tau.vercel.app",
     live: "https://bonsai-blue-tau.vercel.app",
     repo: "https://github.com/wh0isalfred/Bonsai.",
+    render: true,
   },
   {
     slug: "tajo",
@@ -106,6 +111,7 @@ export const projects: Project[] = [
     url: "tajopartners.info",
     live: "https://tajopartners.info",
     repo: "",
+    render: true,
   },
   {
     slug: "samuel-richard",
@@ -121,5 +127,6 @@ export const projects: Project[] = [
     url: "samuel-richard.vercel.app",
     live: "https://samuel-richard.vercel.app",
     repo: "https://github.com/wh0isalfred/samuelRichard",
+    render: true,
   },
 ];

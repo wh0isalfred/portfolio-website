@@ -2,11 +2,25 @@ import { useState } from "react";
 import { FiLock, FiArrowUpRight, FiCode } from "react-icons/fi";
 import type { Project } from "../data/projects";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({
+  project,
+  onOpenCaseStudy,
+}: {
+  project: Project;
+  onOpenCaseStudy: (project: Project) => void;
+}) {
   const [imgOk, setImgOk] = useState(true);
 
   return (
-    <article className="card">
+    <article
+      className="card"
+      onClick={() => onOpenCaseStudy(project)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onOpenCaseStudy(project);
+      }}
+    >
       <div className="browser">
         <div className="browser-bar">
           <span className="tl">
@@ -19,13 +33,14 @@ export default function ProjectCard({ project }: { project: Project }) {
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
           >
             <FiLock className="lock" />
             <span>{project.url}</span>
             <FiArrowUpRight className="ext" />
           </a>
         </div>
-        <a className="shot" href={project.live} target="_blank" rel="noopener noreferrer">
+        <div className="shot">
           {imgOk ? (
             <img
               src={project.cover}
@@ -38,7 +53,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               <span className="pi">screenshot</span>
             </div>
           )}
-        </a>
+        </div>
       </div>
 
       <div className="card-body">
@@ -48,27 +63,6 @@ export default function ProjectCard({ project }: { project: Project }) {
         </div>
         <p className="card-tagline">{project.tagline}</p>
 
-        <p className="card-stat">
-          $ stack: {project.tech.join(", ")}
-        </p>
-
-        <p className="card-desc">
-          <span className="case-label">Problem —</span> {project.problem}
-        </p>
-        <p className="card-desc">
-          <span className="case-label">Build —</span> {project.build}
-        </p>
-
-        <p className="card-outcome">→ {project.outcome}</p>
-
-        {project.highlights && project.highlights.length > 0 && (
-          <ul className="card-highlights">
-            {project.highlights.slice(0, 3).map((h) => (
-              <li key={h}>{h}</li>
-            ))}
-          </ul>
-        )}
-
         <div className="tags">
           {project.tech.map((t) => (
             <span key={t} className="tag">
@@ -76,8 +70,15 @@ export default function ProjectCard({ project }: { project: Project }) {
             </span>
           ))}
         </div>
+
         <div className="card-links">
-          <a className="clink" href={project.live} target="_blank" rel="noopener noreferrer">
+          <a
+            className="clink"
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+          >
             <FiArrowUpRight /> Live Site
           </a>
           {project.repo ? (
@@ -86,6 +87,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               href={project.repo}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
             >
               <FiCode /> View Code
             </a>

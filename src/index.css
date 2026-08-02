@@ -121,9 +121,27 @@ img{display:block;max-width:100%}
 /* ---------- PROJECT CARDS ---------- */
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;
-  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;display:flex;flex-direction:column}
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;cursor:pointer}
 .card:hover{transform:translateY(-6px);border-color:var(--border-2);
   box-shadow:0 24px 50px -28px var(--glow)}
+
+.view-all-wrap{display:flex;justify-content:center;margin-top:40px}
+
+.case-modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(3,9,15,.72);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.case-modal{position:relative;background:var(--surface);border:1px solid var(--border-2);border-radius:20px;
+  padding:36px;max-width:640px;width:100%;max-height:86vh;overflow-y:auto;box-shadow:0 40px 100px -20px rgba(0,0,0,.6)}
+.case-modal-close{position:absolute;top:20px;right:20px;background:var(--surface-2);border:1px solid var(--border-2);
+  border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  color:var(--text);cursor:pointer;font-size:16px}
+.case-modal-close:hover{border-color:var(--indigo);color:var(--indigo)}
+.case-modal h3{font-family:var(--display);font-weight:600;font-size:24px;margin:8px 0 20px;letter-spacing:-.01em}
+.case-modal-p{color:var(--muted);font-size:14.5px;line-height:1.7;margin-bottom:14px}
+.case-modal-outcome{font-size:14px;font-weight:600;color:var(--indigo);margin-bottom:18px}
+.case-modal-highlights{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:8px}
+.case-modal-highlights li{font-size:13px;color:var(--muted);padding-left:16px;position:relative;line-height:1.5}
+.case-modal-highlights li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;
+  border-radius:50%;background:var(--cyan-deep)}
 .browser{background:var(--surface-2);border-bottom:1px solid var(--border)}
 .browser-bar{display:flex;align-items:center;gap:8px;padding:11px 14px}
 .tl{display:flex;gap:6px}

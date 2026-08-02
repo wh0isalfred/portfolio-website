@@ -1,18 +1,30 @@
+import { useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
-import { projects } from "../data/projects";
+import { Link } from "react-router-dom";
+import { projects, type Project } from "../data/projects";
 import ProjectCard from "./ProjectCard";
+import CaseStudyModal from "./CaseStudyModal";
 
-export default function Projects() {
+const HOME_LIMIT = 6;
+
+export default function Projects({ full = false }: { full?: boolean }) {
+  const [active, setActive] = useState<Project | null>(null);
+
+  const list = full ? projects : projects.filter((p) => p.render).slice(0, HOME_LIMIT);
+  const showViewAll = !full && projects.filter((p) => p.render).length > 0;
+
   return (
-    <section className="section" id="projects">
+    <section className="section" id="work">
       <div className="wrap">
         <div className="sec-head-row">
           <div>
-            <span className="kicker">
-              <span className="br">&lt;/&gt;</span> Selected Projects
-            </span>
-            <h2>Things I&apos;ve Built</h2>
-            <p className="sub">A few of my recent projects</p>
+            <span className="kicker">MY PROJECTS</span>
+            <h2>{full ? "Build Log — Everything" : "Build Log"}</h2>
+            <p className="sub">
+              {full
+                ? "Every project so far, not just the highlights."
+                : "The systems I've actually shipped."}
+            </p>
           </div>
           <a
             href="https://github.com/wh0isalfred"
@@ -20,15 +32,26 @@ export default function Projects() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            View all on GitHub <FiArrowRight />
+            View GitHub <FiArrowRight />
           </a>
         </div>
+
         <div className="proj-grid">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
+          {list.map((p) => (
+            <ProjectCard key={p.slug} project={p} onOpenCaseStudy={setActive} />
           ))}
         </div>
+
+        {showViewAll && (
+          <div className="view-all-wrap">
+            <Link to="/projects" className="link-all">
+              View all / More work <FiArrowRight />
+            </Link>
+          </div>
+        )}
       </div>
+
+      <CaseStudyModal project={active} onClose={() => setActive(null)} />
     </section>
   );
 }
